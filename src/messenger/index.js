@@ -110,7 +110,6 @@ const parseMessageObj = (event) => {
 
 // Sends message to senderId's messenger
 let sendMessage = (messageData, senderId) => {
-  console.log(messageData);
   if(messageData) {
     return new Promise((resolve, reject) => {
       request({

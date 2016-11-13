@@ -3,6 +3,9 @@
 ### Overview
 We're going to build a chatbot with Node.js that integrates with Facebook Messenger.
 
+### What is a chatbot?
+A chatbot is an application that users can interact with via 'conversational UI'. In other words, instead of interacting with an app on your phone, you chat with an app. This new medium of interaction with 'apps' works very well for a lot of situations and doesn't make sense for others. You can check out some chatbots like [Poncho]() or []() for examples. You can just message these like you would message anyone on Messenger.
+
 ### Prerequisites
 - Node.js (https://nodejs.org/en/)
 - Ngrok (https://ngrok.com/)
@@ -64,3 +67,20 @@ Try sending your bot a message (message the page that you subscribed the messeng
 curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=YOUR_ACCESS_TOKEN"
 ```
 Where `YOUR_ACCESS_TOKEN` is the token you got from the Messenger dashboard.
+
+Restart your server after updating the token, and try messaging your bot again.
+
+### Adding some real responses!
+So right now your bot responds with the same message regardless of what message is sent to you. We're going to add some commands so your bot actually does *something*.
+
+### Letting people test your bot.
+Right now, if anyone tries to message your bot, they won't get a response. This is because Facebook only allows bots to be public after a submission process (highly encourage you to build something and submit it!).
+
+### Moving forward
+Your bot can actually do something now!
+
+But the possibilities are limitless. Here are a few.
+
+1. Add a database to your app (like [MongoDB]() or [PostgreSQL]()) so you can link the user key from messages to a certain user.
+2. Integrate with [Wit.ai](wit.ai). Wit gives you the power of their AI/NLP algorithms that can easily parse through text input (from your users) and extract useful information from those inputs.
+3. Just add more commands for your app! Many very useful chatbots rely on pure command input/output.

@@ -56,7 +56,6 @@ const generateMessagesFromArray = (messages, key) => {
   messages.forEach(message => {
     msgs = msgs.concat(buildMessage(message, key));
   });
-  console.log(msgs);
 
   return msgs;
 };
@@ -73,7 +72,7 @@ const buildMessage = (message, key) => {
       key
     }
   }
-}
+};
 
 // you have message and user (user's id)
 const getResponsesForMessage = ({message, userKey}) => {
