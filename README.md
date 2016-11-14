@@ -51,9 +51,9 @@ Steps:
 
 Then, back in the Messenger dashboard, go to your app and click 'Add Product'. Find and choose 'Webhooks'.
 
-Back in the Messenger tab on the left side-bar, scroll to 'Webhooks' and paste the following in the "Callback URL" field: [ngrok url]/messenger/webhook
+Back in the Messenger tab on the left side-bar, scroll to 'Webhooks' and paste the ngrok url into the "Callback URL" field.
 
-In 'Verify Token', type 'TOKEN'.
+In 'Verify Token', type 'TOKEN'. Usually, this should be a unique, secret key so Facebook can confirm it's *your* app that it's sending messages to.
 
 Check `messages` and `messaging_postbacks` in the "Subscription Fields" section.
 
@@ -75,6 +75,8 @@ So right now your bot responds with the same message regardless of what message 
 
 ### Letting people test your bot.
 Right now, if anyone tries to message your bot, they won't get a response. This is because Facebook only allows bots to be public after a submission process (highly encourage you to build something and submit it!).
+
+In your app dashboard, go to 'Roles'. Add the people you want to have access to interact with the bot to 'Testers' or 'Developers'.
 
 ### Moving forward
 Your bot can actually do something now!
