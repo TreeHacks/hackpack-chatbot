@@ -63,7 +63,6 @@ const buildMessage = (message, key) => {
   }
 };
 
-// you have message and user (user's id)
 const getResponsesForMessage = ({message, userKey}) => {
   return new Promise((resolve, reject) => {
     if(message.text === 'hi') {
