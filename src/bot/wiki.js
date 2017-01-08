@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 export const getRandomWikiArticleLink = () => {
   return request({
-    uri: 'https://en.wikipedia.org/w/api.php?action=query&list=random&rnlimit=1&format=json',
+    uri: 'https://en.wikipedia.org/w/api.php',
     qs: {
       action: 'query',
       list: 'random',

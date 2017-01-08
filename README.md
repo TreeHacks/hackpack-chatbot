@@ -96,6 +96,7 @@ Restart your server after updating the token, and try messaging your bot again.
 ### Adding some real responses!
 So right now your bot responds with the same message regardless of what message is sent to you. We're going to add some commands so your bot actually does *something*.
 
+<<<<<<< Updated upstream
 Wikipedia has an [API](https://www.mediawiki.org/wiki/API:Main_page) that allows you to do a number of things with their articles (edit, query, view, etc.). We're going to make your bot respond with random Wiki articles.
 
 In `src/bot/wiki.js`, add the following:
@@ -157,6 +158,11 @@ const getResponsesForMessage = ({message, userKey}) => {
 Now, whenever you message your bot 'hi', it'll respond with a greeting and instructions (check the top of the file for the contents of these messages). If you message 'random' to your bot, it'll get a random wiki article and send it to you.
 
 If you haven't seen some of this syntax before, each line that says `resolve([SOMETHING])` is returning those messages to be sent back to the user.
+=======
+Wikipedia has a free API where you can perform a number of actions on their articles (reading or editing).
+
+We're going to make a chatbot that retrieves a random Wiki article whenever you ask it.
+>>>>>>> Stashed changes
 
 ### Letting people test your bot.
 Right now, if anyone other than you (or whoever registered the chatbot app on Facebook) tries to message your bot, they won't get a response. This is because Facebook only allows bots to be public after a submission process (highly encourage you to build something and submit it!).
