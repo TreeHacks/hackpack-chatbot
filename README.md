@@ -164,7 +164,7 @@ Right now, if anyone other than you (or whoever registered the chatbot app on Fa
 In your app dashboard, go to 'Roles'. Add the people you want to have access to interact with the bot to 'Testers' (or 'Developers', if they're helping develop it).
 
 ### Moving forward
-Your bot can actually do something now!
+Your bot is functional now!
 
 Having `if` statements to handle different commands is fine for some bots, but as you build something more and more complicated, you'll likely want to come up with different ways to handle input.
 
