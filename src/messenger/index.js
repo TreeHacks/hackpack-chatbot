@@ -6,7 +6,7 @@ import * as bot from '../bot/index';
 // For webhook verification with messenger's platform
 export let verifyMessenger = (req, res) => {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === 'TOKEN') {
+      req.query['hub.verify_token'] === config.messengerVerifyToken) {
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
@@ -45,6 +45,7 @@ let handleMessageEvent = (event) => {
     message,
     userKey: sender
   }).then(responses => {
+    console.log('Responding: ')
     console.log(responses);
     if(_.has(responses, '0')) {
       responses.forEach(response => {
