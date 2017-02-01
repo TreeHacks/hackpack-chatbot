@@ -91,8 +91,6 @@ curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=YO
 
 Where `YOUR_ACCESS_TOKEN` is the token you got from the Messenger dashboard.
 
-Restart your server after updating the token, and try messaging your bot again.
-
 ### Adding some real responses!
 So right now your bot responds with the same message regardless of what message is sent to you. We're going to add some commands so your bot actually does *something*.
 
@@ -157,6 +155,41 @@ const getResponsesForMessage = ({message, userKey}) => {
 Now, whenever you message your bot 'hi', it'll respond with a greeting and instructions (check the top of the file for the contents of these messages). If you message 'random' to your bot, it'll get a random wiki article and send it to you.
 
 If you haven't seen some of this syntax before, each line that says `resolve([SOMETHING])` is returning those messages to be sent back to the user.
+
+### Adding more responses to your bot
+Go to `src/bot/responses.js` and change `BOT NAME` to whatever you want your bot name to be.
+
+Back in `src/bot/index.js`, in `getResponsesForMessage` that you just added to a minute ago, add in the extra case below:
+
+```
+const getResponsesForMessage = ({message, userKey}) => {
+  return new Promise((resolve, reject) => {
+    if(message.text === 'hi') {
+      resolve([responses.greetingMessage, responses.instructions]);
+    } else if(message.text === 'random') {
+      wiki.getRandomWikiArticleLink()
+        .then(link => {
+          resolve([responses.hereYouGo, link]);
+        }).catch(() => {
+          resolve([responses.failure])
+        })
+    } // ADD THIS STATEMENT
+    else if(responses.hasOwnProperty(message.text)) {
+      resolve([responses[message.text]]);
+    } else {
+      resolve([responses.invalidMessage]);
+    }
+  });
+};
+```
+
+Once you restart your server with this new change, try messaging your bot "Hello".
+
+Then, "What's your name?"
+
+Then, "Are you a robot?"
+
+If everything's going right, you should get some 'real' responses! You can edit `src/bot/responses.js` to add more messages to handle and respond to.
 
 ### Letting people test your bot.
 Right now, if anyone other than you (or whoever registered the chatbot app on Facebook) tries to message your bot, they won't get a response. This is because Facebook only allows bots to be public after a submission process (highly encourage you to build something and submit it!).
