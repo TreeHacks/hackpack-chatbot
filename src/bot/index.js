@@ -2,8 +2,9 @@
  * This is the actual logic behind the messages
  */
 import * as wiki from './wiki';
+import responses from './responses';
 
-const responses = {
+const defaultResponses = {
   instructions: {
     type: 'template',
     payload: {
@@ -74,8 +75,10 @@ const getResponsesForMessage = ({message, userKey}) => {
         }).catch(() => {
           resolve([responses.failure])
         })
+    } else if(responses.hasOwnProperty(message.text)) {
+      resolve([responses[message.text]]);
     } else {
-      resolve([responses.invalidMessage]);
+      resolve([defaultResponses.invalidMessage]);
     }
   });
 };

@@ -1,5 +1,6 @@
-var messengerPageToken = process.env.MESSENGER_TOKEN || 'EAABvEAKqyv4BACf3aep0kMGFZBNZB2Dp3hxERYafbTUlZCLQDFDlwoyZBFizuTGGTBQY9qZAUc52mwEHGXpSJNAUPfkbkooFvGZBBWrdLOGIbEFS9gecHj7X8Xrd8hPtmoZCZBzTQBZBkn2YA4KYfnpqfFLZBmuucSo9iNioKtHuUG7AZDZD';
+var messengerPageToken = process.env.MESSENGER_TOKEN || 'EAABcRod4IO8BAC0dYIKTpszKqC9dDZCYKsrNnKP9aVzR08wZAElwJs4uBy8NVxvMyHSopFDIbHUvCX6lJPQVDkLSGmQl7lSXncbQutziAANROf3zg1yJUtUj8TwzrojJjstwMQGhSSfsVvQOT0vRRDQnFpddBxk7qmUaDIQgZDZD';
 
 module.exports = {
-  messengerPageToken: messengerPageToken
+  messengerPageToken: messengerPageToken,
+  messengerVerifyToken: 'TOKEN'
 };
