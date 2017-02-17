@@ -70,14 +70,9 @@ const getResponsesForMessage = ({message, userKey}) => {
     if(message.text === 'hi') {
       resolve([defaultResponses.greetingMessage, defaultResponses.instructions]);
     } else if(message.text === 'random') {
-      wiki.getRandomWikiArticleLink()
-        .then(link => {
-          resolve([responses.hereYouGo, link]);
-        }).catch(() => {
-          resolve([responses.failure])
-        })
+      // add something cool
     } else if(responses.hasOwnProperty(message.text)) {
-      resolve([responses[message.text]]);
+      // add something cooler
     } else {
       resolve([defaultResponses.invalidMessage]);
     }
