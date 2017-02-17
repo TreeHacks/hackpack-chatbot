@@ -9,8 +9,11 @@ A chatbot is an application that users can interact with via 'conversational UI'
 ### Prerequisites
 - Node.js (https://nodejs.org/en/)
 - Ngrok (https://ngrok.com/)
+- A Facebook Account (and Facebook Developer Account)
 
 ### Getting started
+Either add ngrok to your current directory or add it to your PATH ([this](http://stackoverflow.com/questions/30188582/ngrok-command-not-found) is a bit on how to do that) so that you can call it whenever you need to.
+
 First, you'll want to clone this repository locally and `cd` into it:
 
 ```
@@ -35,7 +38,7 @@ Once it's created, you'll get to a page like this:
 
 ![Dev page](https://cloud.githubusercontent.com/assets/3401801/20474730/f03d4e56-af7c-11e6-9b36-fc446c0c770a.png "dev page")
 
-To interact with your chatbot, you'll need to have a Facebook Page that's subscribed to the chatbot. Under 'Token Generation' either add an existing page or 'Create a new page' to add.
+To interact with your chatbot, you'll need to have a Facebook Page that's subscribed to the chatbot. Under 'Token Generation' either add an existing page or 'Create a new page' to add one. You'll need a Facebook Page so you can message your bot!
 
 ![Token generation](https://cloud.githubusercontent.com/assets/3401801/20451879/b016f522-adb3-11e6-815e-fcaf4646fbb8.png "token generation")
 
@@ -77,9 +80,9 @@ Check `messages` and `messaging_postbacks` in the "Subscription Fields" section.
 
 If you end up having to restart ngrok (i. e. if you have to restart your computer), you can go to the 'Webhooks' tab on the left side-bar and update the webhook.
 
-Try sending your bot a message (message the page that you subscribed the messenger app to earlier). Your bot should respond "Hello world!"
+Click 'Add a Button' on your Facebook Page. Then, go to 'Get in Touch' > 'Send Message' > 'Add Button'. Hover over the button and hit 'Test Button' and try sending your bot a message. You may have to change your view Your bot should respond "Hello world!" Or not...
 
-If you get no responses and see no requests in your ngrok logs, you may need to do the following:
+If you get no responses and see no requests in your ngrok logs (nothing new shows up in the terminal that's running ngrok), you may need to do the following:
 
 1. Restart your node server
   - `ctrl-c` in the terminal that your node server is running
@@ -89,14 +92,11 @@ If you get no responses and see no requests in your ngrok logs, you may need to 
 curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=YOUR_ACCESS_TOKEN"
 ```
 
-Where `YOUR_ACCESS_TOKEN` is the token you got from the Messenger dashboard.
-
-Restart your server after updating the token, and try messaging your bot again.
+Where `YOUR_ACCESS_TOKEN` is the token you got from the Messenger dashboard. You should get a json object that has something like `success: true`.
 
 ### Adding some real responses!
 So right now your bot responds with the same message regardless of what message is sent to you. We're going to add some commands so your bot actually does *something*.
 
-<<<<<<< Updated upstream
 Wikipedia has an [API](https://www.mediawiki.org/wiki/API:Main_page) that allows you to do a number of things with their articles (edit, query, view, etc.). We're going to make your bot respond with random Wiki articles.
 
 In `src/bot/wiki.js`, add the following:
@@ -158,11 +158,41 @@ const getResponsesForMessage = ({message, userKey}) => {
 Now, whenever you message your bot 'hi', it'll respond with a greeting and instructions (check the top of the file for the contents of these messages). If you message 'random' to your bot, it'll get a random wiki article and send it to you.
 
 If you haven't seen some of this syntax before, each line that says `resolve([SOMETHING])` is returning those messages to be sent back to the user.
-=======
-Wikipedia has a free API where you can perform a number of actions on their articles (reading or editing).
 
-We're going to make a chatbot that retrieves a random Wiki article whenever you ask it.
->>>>>>> Stashed changes
+### Adding more responses to your bot
+Go to `src/bot/responses.js` and change `BOT NAME` to whatever you want your bot name to be.
+
+Back in `src/bot/index.js`, in `getResponsesForMessage` that you just added to a minute ago, add in the extra case below:
+
+```
+const getResponsesForMessage = ({message, userKey}) => {
+  return new Promise((resolve, reject) => {
+    if(message.text === 'hi') {
+      resolve([responses.greetingMessage, responses.instructions]);
+    } else if(message.text === 'random') {
+      wiki.getRandomWikiArticleLink()
+        .then(link => {
+          resolve([responses.hereYouGo, link]);
+        }).catch(() => {
+          resolve([responses.failure])
+        })
+    } // ADD THIS STATEMENT
+    else if(responses.hasOwnProperty(message.text)) {
+      resolve([responses[message.text]]);
+    } else {
+      resolve([responses.invalidMessage]);
+    }
+  });
+};
+```
+
+Once you restart your server with this new change, try messaging your bot "Hello".
+
+Then, "What's your name?"
+
+Then, "Are you a robot?"
+
+If everything's going right, you should get some 'real' responses! You can edit `src/bot/responses.js` to add more messages to handle and respond to.
 
 ### Letting people test your bot.
 Right now, if anyone other than you (or whoever registered the chatbot app on Facebook) tries to message your bot, they won't get a response. This is because Facebook only allows bots to be public after a submission process (highly encourage you to build something and submit it!).
@@ -170,7 +200,7 @@ Right now, if anyone other than you (or whoever registered the chatbot app on Fa
 In your app dashboard, go to 'Roles'. Add the people you want to have access to interact with the bot to 'Testers' (or 'Developers', if they're helping develop it).
 
 ### Moving forward
-Your bot can actually do something now!
+Your bot is functional now!
 
 Having `if` statements to handle different commands is fine for some bots, but as you build something more and more complicated, you'll likely want to come up with different ways to handle input.
 
