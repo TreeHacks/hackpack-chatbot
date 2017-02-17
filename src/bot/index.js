@@ -5,6 +5,7 @@ import * as wiki from './wiki';
 import responses from './responses';
 
 const defaultResponses = {
+  // these are just some various responses you might want to send
   instructions: {
     type: 'template',
     payload: {
@@ -67,7 +68,7 @@ const buildMessage = (message, key) => {
 const getResponsesForMessage = ({message, userKey}) => {
   return new Promise((resolve, reject) => {
     if(message.text === 'hi') {
-      resolve([responses.greetingMessage, responses.instructions]);
+      resolve([defaultResponses.greetingMessage, defaultResponses.instructions]);
     } else if(message.text === 'random') {
       wiki.getRandomWikiArticleLink()
         .then(link => {
